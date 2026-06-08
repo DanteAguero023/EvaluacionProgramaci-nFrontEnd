@@ -8,38 +8,94 @@
 </head>
 <body>
 
+  <!-- AppBar: titulo dinamico cambia segun la pantalla activa -->
   <header>
     <h1>BiciUrbana</h1>
+    <!-- IA genero esta seccion - Flexbox nav -->
     <nav>
       <ul>
-        <li><a href="#inicio">Inicio</a></li>
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#nosotros">Nosotros</a></li>
-        <li><a href="#contacto">Contacto</a></li>
+        <li><a class="nav-link activo" data-target="inicio">Inicio</a></li>
+        <li><a class="nav-link" data-target="servicios">Servicios</a></li>
+        <li><a class="nav-link" data-target="nosotros">Nosotros</a></li>
+        <li><a class="nav-link" data-target="contacto">Contacto</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
 
-    <section id="inicio">
-      <h2>Hola, somos BiciUrbana</h2>
-      <p>Tu bicicleta, nuestra pasión. Rueda con nosotros.</p>
+    <!-- Pantalla: Inicio -->
+    <section id="inicio" class="pantalla activa">
+      <div class="inicio-contenido">
+        <div class="inicio-texto">
+          <h2>Hola, somos BiciUrbana</h2>
+          <p>Tu bicicleta, nuestra pasion. Rueda con nosotros.</p>
+          <a class="btn-cta nav-link" data-target="contacto">Agendar revision</a>
+        </div>
+        <!-- Imagen de stock - bicicleta hero -->
+        <img
+          class="inicio-img"
+          src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=600&q=80"
+          alt="Bicicleta urbana lista para rodar"
+        >
+      </div>
     </section>
 
-    <section id="servicios">
+    <!-- Pantalla: Servicios - 3 tarjetas en grid -->
+    <section id="servicios" class="pantalla">
       <h2>Nuestros Servicios</h2>
-      <p>Venta, taller y arriendo de bicicletas urbanas, MTB y eléctricas.</p>
+      <!-- IA genero esta seccion - Grid servicios -->
+      <div class="grid-servicios">
+        <article class="tarjeta">
+          <h3>Taller de reparacion</h3>
+          <p>Diagnostico y mantencion express para tu bicicleta.</p>
+        </article>
+        <article class="tarjeta">
+          <h3>Venta de bicicletas</h3>
+          <p>Urbanas, MTB y electricas. Encuentra tu modelo ideal.</p>
+        </article>
+        <article class="tarjeta">
+          <h3>Arriendo diario</h3>
+          <p>Recorre la ciudad sin limites. Retiro y devolucion facil.</p>
+        </article>
+      </div>
     </section>
 
-    <section id="nosotros">
-      <h2>Quiénes Somos</h2>
-      <p>Más de 8 años promoviendo la movilidad sostenible en la ciudad.</p>
+    <!-- Pantalla: Nosotros -->
+    <section id="nosotros" class="pantalla">
+      <h2>Quienes Somos</h2>
+      <div class="nosotros-contenido">
+        <p>Mas de 8 anos promoviendo la movilidad sostenible en la ciudad. Somos un equipo apasionado por el ciclismo urbano, comprometido con un transporte limpio y accesible para todos.</p>
+        <!-- Imagen de stock - bicicleta urbana -->
+        <img
+          class="nosotros-img"
+          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80"
+          alt="Bicicleta urbana en la ciudad"
+        >
+      </div>
     </section>
 
-    <section id="contacto">
+    <!-- Pantalla: Contacto - formulario de 3 campos -->
+    <section id="contacto" class="pantalla">
       <h2>Contacto</h2>
-      <p>Escríbenos para agendar una revisión o consultar disponibilidad.</p>
+      <p>Escribenos para agendar una revision o consultar disponibilidad.</p>
+      <form>
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre">
+
+        <label for="email">Correo electronico</label>
+        <input type="email" id="email" name="email" placeholder="tucorreo@email.com">
+
+        <label for="servicio">Tipo de servicio</label>
+        <select id="servicio" name="servicio">
+          <option value="">Selecciona un servicio</option>
+          <option value="taller">Taller de reparacion</option>
+          <option value="venta">Venta de bicicletas</option>
+          <option value="arriendo">Arriendo diario</option>
+        </select>
+
+        <button type="submit">Enviar</button>
+      </form>
     </section>
 
   </main>
@@ -47,6 +103,33 @@
   <footer>
     <p>© 2026 BiciUrbana · Todos los derechos reservados</p>
   </footer>
+
+  <script>
+    // Muestra la pantalla indicada y oculta el resto
+    function mostrarPantalla(id) {
+      document.querySelectorAll('.pantalla').forEach(function(s) {
+        s.classList.remove('activa');
+      });
+      document.querySelectorAll('.nav-link').forEach(function(a) {
+        a.classList.remove('activo');
+      });
+
+      document.getElementById(id).classList.add('activa');
+
+      document.querySelectorAll('.nav-link[data-target="' + id + '"]').forEach(function(a) {
+        a.classList.add('activo');
+      });
+    }
+
+    // Asigna el evento click a cada link de navegacion
+    document.querySelectorAll('.nav-link').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = this.getAttribute('data-target');
+        if (target) mostrarPantalla(target);
+      });
+    });
+  </script>
 
 </body>
 </html>
